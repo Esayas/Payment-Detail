@@ -1,4 +1,10 @@
-<form #form="ngForm" (submit)="onSubmit(form)">
+<form
+  #form="ngForm"
+  (submit)="onSubmit(form)"
+  [class.submitted]="service.formSubmitted"
+  novalidate
+  autocomplete="off"
+>
   <input
     type="hidden"
     name="paymentDetailId"

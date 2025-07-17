@@ -11,6 +11,7 @@ export class PaymentDetailService {
   url: string = environment.apiBaseUrl + '/PaymentDetail';
   paymentList: PaymentDetail[] = [];
   formData: PaymentDetail = new PaymentDetail();
+  formSubmitted: boolean = false;
 
   constructor(private http: HttpClient) {
     console.log('url');
@@ -29,12 +30,24 @@ export class PaymentDetailService {
     return this.http.post(this.url, this.formData);
   }
 
+  putPaymentDetail() {
+    return this.http.put(
+      this.url + '/' + this.formData.paymentDetailId,
+      this.formData
+    );
+  }
+
+  deletePaymentDetail(id: number) {
+    return this.http.delete(this.url + '/' + id);
+  }
+
   // resetForm(form: NgForm) {
   //   form.form.reset();
   //   this.formData = new PaymentDetail();
   // }
 
   resetForm() {
+    this.formSubmitted = false;
     this.formData = new PaymentDetail();
   }
 }
