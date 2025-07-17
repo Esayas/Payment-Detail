@@ -1,0 +1,17 @@
+mouse-hover {
+  cursor: pointer;
+}
+
+form label {
+  /* text-transform: uppercase; */
+  color: grey;
+}
+
+form input {
+  font-weight: 200;
+}
+
+form input::placeholder {
+  color: #c0bdbd;
+  font-weight: 100;
+}

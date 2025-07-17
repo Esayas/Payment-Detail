@@ -1,0 +1,25 @@
+<div class="bg-body-secondary text-center py-2 mt-2 rounded-2">
+  <h1 class="display-6 fw-bold">Payment Detail Register</h1>
+</div>
+<div class="row mt-3 bg-body-secondary">
+  <div class="col-6">
+    <app-payment-detail-form></app-payment-detail-form>
+  </div>
+  <div class="col-6">
+    <ul class="list-group">
+      <li
+        class="list-group-item d-flex mb-2 border-1 px-4 py-3 rounded-3"
+        *ngFor="let pd of service.paymentList"
+      >
+        <div class="flex-grow-1 mouse-hover">
+          <div class="fw-bold">{{ pd.cardOwnerName }}</div>
+          <div>{{ pd.cardNumber }}</div>
+          <div class="fw-bold">{{ pd.expirationDate }}</div>
+        </div>
+        <span class="text-secondary">
+          <i class="fa-solid fa-trash-can fa-lg mouse-hover"></i>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
