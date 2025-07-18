@@ -32,7 +32,7 @@ export class PaymentDetailsComponent implements OnInit {
           // console.log(res);
           // this.service.refreshList();
           this.service.paymentList = res as PaymentDetail[];
-          // this.service.resetForm(form);
+          // // this.service.resetForm(form);
           this.service.resetForm();
           this.toastr.error('Deleted successfully', 'Payment Detail Register');
         },
