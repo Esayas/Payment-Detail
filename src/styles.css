@@ -1,3 +1,7 @@
+body {
+  font-family: "Inter", sans-serif;
+}
+
 mouse-hover {
   cursor: pointer;
 }
@@ -18,4 +22,11 @@ form input::placeholder {
 
 form.submitted input.ng-invalid {
   border-color: red;
+}
+
+.error-feedback {
+  font-size: 0.9rem;
+  color: crimson;
+  margin: 0.3rem !important;
+  margin-top: 0.1rem !important;
 }
