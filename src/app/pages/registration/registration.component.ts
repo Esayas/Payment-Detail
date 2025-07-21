@@ -9,10 +9,13 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { FirstkeyPipe } from '../../shared/pipes/firstkey.pipe';
+import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, FirstkeyPipe],
   templateUrl: './registration.component.html',
   styles: ``,
 })
@@ -37,7 +40,11 @@ export class RegistrationComponent {
     return null;
   };
 
-  constructor(public formBuilder: FormBuilder) {
+  constructor(
+    public formBuilder: FormBuilder,
+    private service: AuthService,
+    private toastr: ToastrService
+  ) {
     this.form = this.formBuilder.group(
       {
         fullName: ['', Validators.required],
@@ -61,14 +68,50 @@ export class RegistrationComponent {
 
   onSubmit() {
     this.isSubmitted = true;
-    console.log(this.form.value);
+    if (this.form.valid) {
+      this.service.createUser(this.form.value).subscribe({
+        next: (res: any) => {
+          if (res.succeeded) {
+            this.form.reset();
+            this.isSubmitted = false;
+            this.toastr.success('New user created', 'Registration Success');
+            console.log(this.form.value);
+          } else {
+            console.log('Code', 'TG');
+          }
+        },
+        error: (err) => {
+          if (err.error.errors) {
+            err.error.errors.forEach((x: any) => {
+              console.log('Code', x);
+              switch (x.code) {
+                case 'DuplicateUserName':
+                  break;
+                case 'DuplicateEmail':
+                  this.toastr.error(
+                    'Email is already taken',
+                    'Registration Failed'
+                  );
+                  break;
+                default:
+                  this.toastr.error('Contact the Admin', 'Registration Failed');
+                  console.log(x);
+                  break;
+              }
+            });
+          } else {
+            console.log('error', err);
+          }
+        },
+      });
+    }
   }
 
   hasDisplayableError(controlName: string): Boolean {
     const control = this.form.get(controlName);
     return (
       Boolean(control?.invalid) &&
-      (this.isSubmitted || Boolean(control?.touched))
+      (this.isSubmitted || Boolean(control?.touched) || Boolean(control?.dirty))
     );
   }
 }

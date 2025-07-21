@@ -12,6 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideAnimations(),
-    provideToastr(), // optional: you can pass options here
+    provideToastr({ positionClass: 'toast-top-center' }), // optional: you can pass options here
   ],
 };
