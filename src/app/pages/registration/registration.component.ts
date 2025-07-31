@@ -12,10 +12,11 @@ import {
 import { FirstkeyPipe } from '../../shared/pipes/firstkey.pipe';
 import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
-  imports: [ReactiveFormsModule, CommonModule, FirstkeyPipe],
+  imports: [ReactiveFormsModule, CommonModule, FirstkeyPipe, RouterLink],
   templateUrl: './registration.component.html',
   styles: ``,
 })
@@ -75,9 +76,7 @@ export class RegistrationComponent {
             this.form.reset();
             this.isSubmitted = false;
             this.toastr.success('New user created', 'Registration Success');
-            console.log(this.form.value);
-          } else {
-            console.log('Code', 'TG');
+            // console.log(this.form.value);
           }
         },
         error: (err) => {
